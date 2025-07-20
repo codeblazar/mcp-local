@@ -1,6 +1,42 @@
 # MCP Server Tutorial
 
-This is a simple, educational MCP (Model Context Protocol) server that demonstrates the core concepts in just 2 files.
+A simple, educational Model Context Protocol (MCP) server that demonstrates the core concepts in just 2 files.
+
+Perfect for learning how MCP works before building more complex servers!
+
+## Quick Start
+
+### Option 1: Automatic Setup
+```bash
+# Clone the repository
+git clone https://github.com/codeblazar/mcp-local.git
+cd mcp-local
+
+# Run setup script
+# Windows:
+setup.bat
+# Linux/macOS:
+chmod +x setup.sh && ./setup.sh
+```
+
+### Option 2: Manual Setup
+```bash
+# Clone and setup
+git clone https://github.com/codeblazar/mcp-local.git
+cd mcp-local
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
 
 ## What You'll Learn
 - How to create an MCP server in Python (24 lines!)
@@ -22,7 +58,7 @@ The server provides one simple tool:
 
 ### Terminal 1 - Start the Server:
 ```bash
-cd [your-mcp-folder]
+cd mcp-local
 python simple_mcp_server.py
 ```
 - Server starts and waits for connections
@@ -31,7 +67,7 @@ python simple_mcp_server.py
 
 ### Terminal 2 - Test with the Client:
 ```bash
-cd [your-mcp-folder]
+cd mcp-local
 python simple_mcp_client.py
 ```
 
@@ -80,3 +116,39 @@ Once your server works:
 - ✅ **Educational:** Shows core MCP concepts clearly
 - ✅ **Working:** Actually functional MCP server
 - ✅ **Focused:** One clear purpose per file
+
+## Requirements
+
+- Python 3.10 or higher
+- `mcp` package (installed via requirements.txt)
+
+## Repository Structure
+
+```
+mcp-local/
+├── README.md                 # This documentation
+├── simple_mcp_server.py      # 24-line MCP server
+├── simple_mcp_client.py      # Test client
+├── requirements.txt          # Python dependencies
+├── setup.bat                 # Windows setup script
+├── setup.sh                  # Linux/macOS setup script
+├── LICENSE                   # MIT License
+└── .gitignore               # Git ignore rules
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test with both server and client
+5. Submit a pull request
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Support
+
+- For MCP questions: [MCP Documentation](https://modelcontextprotocol.io/)
+- For issues with this tutorial: [Create an issue](https://github.com/codeblazar/mcp-local/issues)
