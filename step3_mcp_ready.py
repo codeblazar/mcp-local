@@ -50,7 +50,7 @@ def list_files_mcp_ready(directory_path, include_hidden=False):
         
         # Format for MCP response - user-friendly with emojis
         result = f"📁 Directory: {directory_path}\n"
-        result += f"📊 Found {len(files)} items\n\n"
+        result += f"Found {len(files)} items\n\n"
         
         for file in files:
             icon = "📁" if file['type'] == 'directory' else "📄"

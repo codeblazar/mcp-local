@@ -121,6 +121,63 @@ async def list_files_detailed(directory_path, include_hidden=False):
         error_msg = f"❌ Error: {e}"
         return error_msg
 
+@mcp.tool()
+async def list_files_mcp_ready(directory_path: str, include_hidden: bool = False) -> str:
+    """
+    File listing formatted for MCP server return value
+    
+    Args:
+        directory_path: Path to the directory to list
+        include_hidden: Whether to include hidden files (starting with .)
+        
+    Returns:
+        String formatted for MCP tool response with clean layout
+    """
+    try:
+        path = Path(directory_path)
+        
+        # Validation checks
+        if not path.exists():
+            return f"❌ Directory not found: {directory_path}"
+        
+        if not path.is_dir():
+            return f"❌ Not a directory: {directory_path}"
+        
+        # Collect file information
+        files = []
+        for item in path.iterdir():
+            # Skip hidden files unless requested
+            if not include_hidden and item.name.startswith('.'):
+                continue
+                
+            stat = item.stat()
+            files.append({
+                'name': item.name,
+                'type': 'directory' if item.is_dir() else 'file',
+                'size': stat.st_size if item.is_file() else None,
+                'modified': datetime.datetime.fromtimestamp(stat.st_mtime).isoformat()
+            })
+        
+        # Sort by name (case-insensitive)
+        files.sort(key=lambda x: x['name'].lower())
+        
+        # Format for MCP response - user-friendly without problematic emojis
+        result = f"Directory: {directory_path}\n"
+        result += f"Found {len(files)} items\n\n"
+        
+        for file in files:
+            icon = "[DIR]" if file['type'] == 'directory' else "[FILE]"
+            size_info = f" ({file['size']:,} bytes)" if file['size'] is not None else ""
+            result += f"{icon} {file['name']}{size_info}\n"
+        
+        return result
+        
+    except PermissionError:
+        return f"❌ Permission denied: {directory_path}"
+        
+    except Exception as e:
+        return f"❌ Error listing directory: {e}"
+
 # Main entry point - runs the server using stdio transport
 if __name__ == "__main__":
     mcp.run(transport='stdio')
