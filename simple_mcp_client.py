@@ -37,11 +37,14 @@ async def test_mcp_server():
                 tools_result = await session.list_tools()
                 server_name = "hello-server"  # We know this from the server code
                 print(f"✅ Success! Connected to: {server_name}")
-                print(f"✅ Server has tools: {{'listChanged': False}}")
-                print(f"✅ Found the 'greet' tool: {tools_result.tools[0].description}")
+                print(f"✅ Server has {len(tools_result.tools)} tools available:")
                 
-                # Call the greet tool with default test
-                print("✅ Testing the greet tool...")
+                # Show all available tools
+                for i, tool in enumerate(tools_result.tools):
+                    print(f"  {i+1}. '{tool.name}': {tool.description}")
+                
+                # Test the greet tool
+                print("\n✅ Testing the greet tool...")
                 result = await session.call_tool("greet", {"name": "Simple Test"})
                 if result.isError:
                     print(f"❌ Tool call failed: {result}")

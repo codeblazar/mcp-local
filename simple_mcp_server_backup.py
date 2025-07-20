@@ -9,7 +9,6 @@ Built following the official MCP documentation patterns (2025).
 """
 
 from mcp.server.fastmcp import FastMCP
-import os # Add this line for basic file operations
 
 # Create the MCP server using FastMCP (official 2025 pattern)
 mcp = FastMCP("hello-server")
@@ -25,30 +24,6 @@ async def greet(name: str) -> str:
         A friendly greeting message
     """
     return f"Hello, {name}! Welcome to MCP!"
-
-@mcp.tool()
-async def list_files_basic(directory_path: str) -> str:
-    """
-    List files in a directory (basic version).
-    cle
-    Args:
-        directory_path: Path to the directory to list
-        
-    Returns:
-        String with file names, one per line
-    """
-    try:
-        files = os.listdir(directory_path)
-        result = f"Files in {directory_path}:\n"
-        for file in files:
-            result += f"  {file}\n"
-        return result
-        
-    except FileNotFoundError:
-        return f"❌ Directory not found: {directory_path}"
-        
-    except PermissionError:
-        return f"❌ Permission denied: {directory_path}"
 
 # Main entry point - runs the server using stdio transport
 if __name__ == "__main__":
