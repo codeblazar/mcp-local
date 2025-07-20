@@ -69,7 +69,7 @@ def list_files_detailed(directory_path, include_hidden=False):
             size_str = f"{file['size']:,}" if file['type'] == 'FILE' else ""
             result += f"{file['type']:<6} {size_str:<10} {file['modified']:<20} {file['name']}\n"
             
-        result += f"\n📊 Total: {len(files)} items"
+        result += f"\nTotal: {len(files)} items"
         
         print(result)
         return result
